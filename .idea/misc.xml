@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/DELL/LineUp/app/src/main/res/drawable/round_bg.xml" value="0.1915" />
+        <entry key="..\:/Users/DELL/LineUp/app/src/main/res/layout/activity_welcome.xml" value="0.25" />
+        <entry key="..\:/Users/DELL/LineUp/app/src/main/res/layout/line_up_label.xml" value="0.176" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
