@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'dagger.hilt.android.plugin'
+    id "kotlin-kapt"
 }
 
 android {
@@ -50,5 +52,11 @@ dependencies {
     // QR
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
 
+    // Hilt - Dagger
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+
+    // WebSocket
+    implementation 'com.github.nkzawa:socket.io-client:0.5.2'
 
 }
