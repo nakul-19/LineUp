@@ -3,8 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/DELL/LineUp/app/src/main/res/drawable/bottom_bg.xml" value="0.1915" />
         <entry key="..\:/Users/DELL/LineUp/app/src/main/res/drawable/round_bg.xml" value="0.1915" />
+        <entry key="..\:/Users/DELL/LineUp/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/Users/DELL/LineUp/app/src/main/res/layout/activity_welcome.xml" value="0.25" />
+        <entry key="..\:/Users/DELL/LineUp/app/src/main/res/layout/fragment_choose_avatar.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/DELL/LineUp/app/src/main/res/layout/fragment_login.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/DELL/LineUp/app/src/main/res/layout/fragment_register.xml" value="0.264" />
+        <entry key="..\:/Users/DELL/LineUp/app/src/main/res/layout/fragment_rules.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/DELL/LineUp/app/src/main/res/layout/line_up_label.xml" value="0.176" />
       </map>
     </option>
