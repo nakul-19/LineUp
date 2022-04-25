@@ -3,6 +3,8 @@ package com.gdsc.lineup
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.gdsc.lineup.databinding.ActivityMainBinding
+import com.gdsc.lineup.main.QRFragment
+import com.gdsc.lineup.main.ScannerFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,17 +19,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupBottomNavigation() {
-
+        supportFragmentManager.beginTransaction().replace(binding.mainFrame.id, QRFragment()).commit()
         binding.bottomNavBar.apply {
             setOnItemSelectedListener {
                 when(it.itemId) {
                     R.id.qr_screen -> {
                         binding.screen.text = "One"
-                        //supportFragmentManager.beginTransaction().replace(binding.mainFrame.id, QRFragment())
+                        supportFragmentManager.beginTransaction().replace(binding.mainFrame.id, QRFragment()).commit()
                     }
                     R.id.scanner_screen -> {
                         binding.screen.text = "Two"
-                        //supportFragmentManager.beginTransaction().replace(binding.mainFrame.id, ScannerFragment())
+                        supportFragmentManager.beginTransaction().replace(binding.mainFrame.id, ScannerFragment()).commit()
                     }
                     R.id.route_screen -> {
                         binding.screen.text = "Three"
