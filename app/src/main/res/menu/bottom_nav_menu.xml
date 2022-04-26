@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/qr_screen"
+        android:icon="@drawable/ic_qr_code"
+        android:title="@string/bottom_nav_qr"/>
+
+    <item
+        android:id="@+id/scanner_screen"
+        android:icon="@drawable/ic_scanner"
+        android:title="@string/bottom_nav_scanner"/>
+
+    <item
+        android:id="@+id/route_screen"
+        android:icon="@drawable/ic_route"
+        android:title="@string/bottom_nav_route" />
+
+    <item
+        android:id="@+id/leaderboard"
+        android:icon="@drawable/ic_leaderboard"
+        android:title="@string/bottom_nav_leaderboard" />
+
+</menu>

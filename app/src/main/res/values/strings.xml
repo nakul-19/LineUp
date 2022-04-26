@@ -22,5 +22,11 @@ your team members and if you can
 find your team as fast as you could
 then we will have something
 special waiting for you.</string>
-
+    <string name="bottom_nav_qr">QR code</string>
+    <string name="bottom_nav_scanner">Scanner</string>
+    <string name="bottom_nav_route">Route</string>
+    <string name="bottom_nav_leaderboard">Leaderboard</string>
+    
+    <string name="qr_screen_heading">My QR Code</string>
+    <string name="qr_screen_info">Show this QR code to your band members.</string>
 </resources>
