@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">LineUp</string>
+  
+    <string name="leaderboard">Leaderboard</string>
 
     <string name="bottom_nav_qr">QR code</string>
     <string name="bottom_nav_scanner">Scanner</string>
