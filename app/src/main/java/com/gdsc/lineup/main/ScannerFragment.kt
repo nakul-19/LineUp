@@ -32,11 +32,12 @@ class ScannerFragment : Fragment() {
     ) {
         isGranted: Boolean ->
         if (isGranted) {
-            startCamera()
+            setupCodeScanner()
         } else {
             // TODO
         }
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +49,6 @@ class ScannerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupCodeScanner()
         requestCamera()
     }
 
@@ -106,7 +106,7 @@ class ScannerFragment : Fragment() {
                 requireContext(),
                 Manifest.permission.CAMERA
             ) -> {
-                startCamera()
+                setupCodeScanner()
             }
             else -> {
                 requestPermissionLauncher.launch(Manifest.permission.CAMERA)
