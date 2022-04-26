@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="25dp"
+    android:paddingVertical="35dp"
+    tools:context=".login.LoginFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/login_text"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="32sp" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/zealId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="75dp"
+        android:background="@drawable/round_bg"
+        android:fontFamily="@font/montserrat_medium"
+        android:hint="@string/zealId"
+        android:inputType="number"
+        android:lines="1"
+        android:maxLength="4"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="15dp" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/round_bg"
+        android:fontFamily="@font/montserrat_medium"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:lines="1"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="15dp" />
+
+</LinearLayout>
