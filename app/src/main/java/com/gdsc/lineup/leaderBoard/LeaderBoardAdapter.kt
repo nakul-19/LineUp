@@ -25,7 +25,7 @@ class LeaderBoardAdapter : RecyclerView.Adapter<LeaderBoardAdapter.VH>() {
         val nameWithZeal = "${list[position].name} (${list[position].zealId})"
         holder.binding.name.text = nameWithZeal
         holder.binding.score.text = list[position].score.toString()
-        when (list[position].avatarId) {
+        when (list[position].avatarId) { // change avatar accordingly
             "1" -> {
 
             }
