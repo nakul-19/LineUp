@@ -2,6 +2,7 @@ package com.gdsc.lineup.di
 
 import android.content.Context
 import com.facebook.stetho.okhttp3.StethoInterceptor
+import android.content.SharedPreferences
 import com.gdsc.lineup.R
 import com.github.nkzawa.socketio.client.IO
 import com.github.nkzawa.socketio.client.Socket
@@ -47,4 +48,9 @@ object AppModule {
     @Provides
     @Singleton
     fun provideNetworkService(retrofit: Retrofit) = retrofit.create(NetworkService::class.java)!!
+  
+   @Provides
+   @Singleton
+   fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences =
+        context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
 }
