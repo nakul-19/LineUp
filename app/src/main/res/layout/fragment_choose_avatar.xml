@@ -17,4 +17,10 @@
         android:textColor="@color/black"
         android:textSize="32sp" />
 
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/avatarVp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"/>
+
 </LinearLayout>
