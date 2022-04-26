@@ -22,8 +22,8 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/qr_image"
-        android:layout_width="308dp"
-        android:layout_height="308dp"
+        android:layout_width="283dp"
+        android:layout_height="283dp"
         android:src="@drawable/ic_qr_code"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
