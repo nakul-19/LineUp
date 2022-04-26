@@ -42,8 +42,9 @@ class RegisterFragment() : Fragment(), ActionEventListener {
     override fun onActionEvent() {
         if (validateInputs()){
             activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.containerSignIn, ChooseAvatarFragment())?.commit()
+        } else { // TODO just for testing
+            startActivity(Intent(requireContext(), MainActivity::class.java))
         }
-
     }
 
     private fun validateInputs(): Boolean {

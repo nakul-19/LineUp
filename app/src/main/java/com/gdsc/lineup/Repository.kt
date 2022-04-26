@@ -5,7 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import project.gdsc.zealicon22.network.NetworkService
+import com.gdsc.lineup.network.NetworkService
 import javax.inject.Inject
 
 /**
