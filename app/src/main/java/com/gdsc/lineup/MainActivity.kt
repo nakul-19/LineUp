@@ -3,6 +3,7 @@ package com.gdsc.lineup
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.gdsc.lineup.databinding.ActivityMainBinding
+import com.gdsc.lineup.leaderBoard.LeaderBoardFragment
 import com.gdsc.lineup.main.QRFragment
 import com.gdsc.lineup.main.ScannerFragment
 
@@ -24,20 +25,16 @@ class MainActivity : AppCompatActivity() {
             setOnItemSelectedListener {
                 when(it.itemId) {
                     R.id.qr_screen -> {
-                        binding.screen.text = "One"
                         supportFragmentManager.beginTransaction().replace(binding.mainFrame.id, QRFragment()).commit()
                     }
                     R.id.scanner_screen -> {
-                        binding.screen.text = "Two"
                         supportFragmentManager.beginTransaction().replace(binding.mainFrame.id, ScannerFragment()).commit()
                     }
                     R.id.route_screen -> {
-                        binding.screen.text = "Three"
                         //supportFragmentManager.beginTransaction().replace(binding.mainFrame.id, RouteFragment())
                     }
                     R.id.leaderboard -> {
-                        binding.screen.text = "Four"
-                        //supportFragmentManager.beginTransaction().replace(binding.mainFrame.id, LeaderboardFragment())
+                        supportFragmentManager.beginTransaction().replace(binding.mainFrame.id, LeaderBoardFragment()).commit()
                     }
                 }
                 return@setOnItemSelectedListener true
