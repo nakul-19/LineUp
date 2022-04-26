@@ -8,8 +8,9 @@ import androidx.fragment.app.Fragment
 import com.gdsc.lineup.databinding.FragmentQRBinding
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class QRFragment : Fragment() {
 
     private lateinit var binding: FragmentQRBinding

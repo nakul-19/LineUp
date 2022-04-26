@@ -19,8 +19,10 @@ import androidx.fragment.app.Fragment
 import com.budiyev.android.codescanner.*
 import com.gdsc.lineup.databinding.DialogTeamMemberFoundBinding
 import com.gdsc.lineup.databinding.FragmentScannerBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class ScannerFragment : Fragment() {
 
     private lateinit var binding: FragmentScannerBinding

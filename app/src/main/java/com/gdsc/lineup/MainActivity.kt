@@ -3,9 +3,12 @@ package com.gdsc.lineup
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.gdsc.lineup.databinding.ActivityMainBinding
+import com.gdsc.lineup.leaderBoard.LeaderBoardFragment
 import com.gdsc.lineup.main.QRFragment
 import com.gdsc.lineup.main.ScannerFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -33,7 +36,7 @@ class MainActivity : AppCompatActivity() {
                         //supportFragmentManager.beginTransaction().replace(binding.mainFrame.id, RouteFragment())
                     }
                     R.id.leaderboard -> {
-                        //supportFragmentManager.beginTransaction().replace(binding.mainFrame.id, LeaderboardFragment())
+                        supportFragmentManager.beginTransaction().replace(binding.mainFrame.id, LeaderBoardFragment()).commit()
                     }
                 }
                 return@setOnItemSelectedListener true

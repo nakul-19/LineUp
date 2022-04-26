@@ -12,8 +12,9 @@ import androidx.core.text.bold
 import com.gdsc.lineup.ActionEventListener
 import com.gdsc.lineup.R
 import com.gdsc.lineup.databinding.FragmentRulesBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class RulesFragment : Fragment(), ActionEventListener {
 
     private lateinit var binding: FragmentRulesBinding

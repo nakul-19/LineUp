@@ -2,6 +2,7 @@
 buildscript {
     ext {
         hilt_version = '2.38.1'
+        coroutines_version = '1.5.2'
     }
     dependencies {
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"

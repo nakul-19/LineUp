@@ -11,7 +11,9 @@ import com.gdsc.lineup.ActionEventListener
 import com.gdsc.lineup.MainActivity
 import com.gdsc.lineup.R
 import com.gdsc.lineup.databinding.FragmentLoginBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginFragment() : Fragment(), ActionEventListener {
 
     private lateinit var binding : FragmentLoginBinding

@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import com.gdsc.lineup.ActionEventListener
 import com.gdsc.lineup.R
 import com.gdsc.lineup.databinding.FragmentChooseAvatarBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ChooseAvatarFragment : Fragment(), ActionEventListener {
 
     private lateinit var binding: FragmentChooseAvatarBinding
