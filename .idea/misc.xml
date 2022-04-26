@@ -4,9 +4,19 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/bottom_nav_bg.xml" value="0.219" />
+        <entry key="app/src/main/res/drawable/ic_dummy_avatar.xml" value="0.2415" />
+        <entry key="app/src/main/res/drawable/ic_route.xml" value="0.231" />
+        <entry key="app/src/main/res/drawable/ic_scanner.xml" value="0.231" />
+        <entry key="app/src/main/res/drawable/ic_trophy.xml" value="0.231" />
+        <entry key="app/src/main/res/drawable/ic_welcome_img.xml" value="0.231" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.382051282051282" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3880208333333333" />
+        <entry key="app/src/main/res/layout/dialog_team_member_found.xml" value="0.382051282051282" />
         <entry key="app/src/main/res/layout/fragment_q_r.xml" value="0.3880208333333333" />
+        <entry key="app/src/main/res/layout/fragment_register.xml" value="0.382051282051282" />
         <entry key="app/src/main/res/layout/fragment_scanner.xml" value="0.37395833333333334" />
+        <entry key="app/src/main/res/layout/item_leader_board.xml" value="0.382051282051282" />
+        <entry key="app/src/main/res/layout/line_up_label.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.3880208333333333" />
       </map>
     </option>
