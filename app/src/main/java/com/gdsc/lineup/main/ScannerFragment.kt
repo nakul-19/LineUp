@@ -35,6 +35,7 @@ class ScannerFragment : Fragment() {
         isGranted: Boolean ->
         if (isGranted) {
             setupCodeScanner()
+            startCamera()
         } else {
             // TODO
         }
@@ -80,6 +81,9 @@ class ScannerFragment : Fragment() {
 
         // make api call to check if the user is in the same team or not
         // and show the dialog box accordingly showTeamMemberFoundDialog() or showNonTeamMemberFoundDialog()
+
+
+
         showTeamMemberFoundDialog()
 
     }
@@ -109,6 +113,7 @@ class ScannerFragment : Fragment() {
                 Manifest.permission.CAMERA
             ) -> {
                 setupCodeScanner()
+                startCamera()
             }
             else -> {
                 requestPermissionLauncher.launch(Manifest.permission.CAMERA)
