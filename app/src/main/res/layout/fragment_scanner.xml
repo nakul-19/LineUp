@@ -6,13 +6,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".main.ScannerFragment">
 
-    <androidx.camera.view.PreviewView
-        android:id="@+id/previewView"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/scanQRCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/scannerView"
+        android:layout_marginBottom="38dp"
+        android:text="@string/scanner_screen_heading"
+        android:fontFamily="@font/montserrat_bold"
+        android:textColor="@color/black"/>
+
+    <com.budiyev.android.codescanner.CodeScannerView
+        android:id="@+id/scannerView"
         android:layout_width="283dp"
         android:layout_height="283dp"
+        app:flashButtonVisible="false"
+        app:autoFocusButtonVisible="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/scanInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="38dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:text="@string/scanner_screen_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scannerView"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

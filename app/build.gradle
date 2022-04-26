@@ -49,12 +49,7 @@ dependencies {
 
     // QR
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
-    implementation 'com.google.zxing:core:3.4.1'
+    implementation 'com.github.yuriy-budiyev:code-scanner:2.1.2'
 
-    // cameraX
-    def camerax_version = "1.0.0-beta07"
-    implementation "androidx.camera:camera-camera2:$camerax_version"
-    implementation "androidx.camera:camera-lifecycle:$camerax_version"
-    implementation "androidx.camera:camera-view:1.0.0-alpha14"
 
 }
