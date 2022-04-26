@@ -22,8 +22,35 @@ class LeaderBoardAdapter : RecyclerView.Adapter<LeaderBoardAdapter.VH>() {
     )
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.binding.name.text = list[position].name
+        val nameWithZeal = "${list[position].name} (${list[position].zealId})"
+        holder.binding.name.text = nameWithZeal
         holder.binding.score.text = list[position].score.toString()
+        when (list[position].avatarId) { // change avatar accordingly
+            "1" -> {
+
+            }
+            "2" -> {
+
+            }
+            "3" -> {
+
+            }
+            "4" -> {
+
+            }
+            "5" -> {
+
+            }
+            "6" -> {
+
+            }
+            "7" -> {
+
+            }
+            "8" -> {
+
+            }
+        }
     }
 
     override fun getItemCount(): Int = list.size
