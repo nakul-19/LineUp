@@ -1,4 +1,4 @@
-package project.gdsc.zealicon22.network
+package com.gdsc.lineup.network
 
 import com.gdsc.lineup.leaderBoard.LeaderBoardResponse
 import retrofit2.Response
