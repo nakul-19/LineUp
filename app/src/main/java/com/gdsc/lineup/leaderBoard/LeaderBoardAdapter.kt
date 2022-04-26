@@ -11,9 +11,10 @@ import com.gdsc.lineup.databinding.ItemLeaderBoardBinding
  */
 class LeaderBoardAdapter : RecyclerView.Adapter<LeaderBoardAdapter.VH>() {
 
-    private var list: ArrayList<LeaderModel> = arrayListOf()
-    fun setList(list: ArrayList<LeaderModel>) {
+    private var list: ArrayList<LeaderBoardResponse> = arrayListOf()
+    fun setList(list: ArrayList<LeaderBoardResponse>) {
         this.list = list
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH = VH(
@@ -21,6 +22,8 @@ class LeaderBoardAdapter : RecyclerView.Adapter<LeaderBoardAdapter.VH>() {
     )
 
     override fun onBindViewHolder(holder: VH, position: Int) {
+        holder.binding.name.text = list[position].name
+        holder.binding.score.text = list[position].score.toString()
     }
 
     override fun getItemCount(): Int = list.size

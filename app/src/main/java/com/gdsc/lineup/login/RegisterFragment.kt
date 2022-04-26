@@ -11,8 +11,9 @@ import com.gdsc.lineup.ActionEventListener
 import com.gdsc.lineup.MainActivity
 import com.gdsc.lineup.R
 import com.gdsc.lineup.databinding.FragmentRegisterBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class RegisterFragment() : Fragment(), ActionEventListener {
 
     private lateinit var binding: FragmentRegisterBinding

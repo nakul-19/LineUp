@@ -5,7 +5,9 @@ import android.os.Bundle
 import com.gdsc.lineup.ActionEventListener
 import com.gdsc.lineup.R
 import com.gdsc.lineup.databinding.ActivityLoginBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginActivity() : AppCompatActivity() {
 
     //by default

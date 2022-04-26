@@ -6,7 +6,9 @@ import com.gdsc.lineup.databinding.ActivityMainBinding
 import com.gdsc.lineup.leaderBoard.LeaderBoardFragment
 import com.gdsc.lineup.main.QRFragment
 import com.gdsc.lineup.main.ScannerFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
