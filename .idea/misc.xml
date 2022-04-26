@@ -5,12 +5,14 @@
       <map>
         <entry key="app/src/main/res/drawable/bottom_nav_bg.xml" value="0.219" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3880208333333333" />
+        <entry key="app/src/main/res/layout/dialog_team_member_found.xml" value="0.36609336609336607" />
         <entry key="app/src/main/res/layout/fragment_q_r.xml" value="0.3880208333333333" />
-        <entry key="app/src/main/res/layout/fragment_scanner.xml" value="0.37395833333333334" />
+        <entry key="app/src/main/res/layout/fragment_scanner.xml" value="0.3880208333333333" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.3880208333333333" />
       </map>
     </option>
   </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

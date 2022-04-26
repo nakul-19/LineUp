@@ -26,7 +26,7 @@ class QRFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getUserId()
+        getUserId() // use this function to fetch string that will be converted to QR code and store it to userId
 
     }
 

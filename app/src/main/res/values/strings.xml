@@ -11,6 +11,12 @@
     <string name="qr_screen_heading">My QR Code</string>
     <string name="qr_screen_info">Show this QR code to your band members.</string>
 
+    <string name="scanner_screen_heading">Scan QR Code</string>
+    <string name="scanner_screen_info">Scan QR code of your band members.</string>
+
+    <string name="dialog_title">YAY!</string>
+    <string name="dialog_info">You found your first team member.</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
