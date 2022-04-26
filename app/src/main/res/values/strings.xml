@@ -1,5 +1,16 @@
 <resources>
     <string name="app_name">LineUp</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+  
     <string name="leaderboard">Leaderboard</string>
+
+    <string name="bottom_nav_qr">QR code</string>
+    <string name="bottom_nav_scanner">Scanner</string>
+    <string name="bottom_nav_route">Route</string>
+    <string name="bottom_nav_leaderboard">Leaderboard</string>
+    
+    <string name="qr_screen_heading">My QR Code</string>
+    <string name="qr_screen_info">Show this QR code to your band members.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
