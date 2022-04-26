@@ -1,6 +1,28 @@
 <resources>
     <string name="app_name">LineUp</string>
-  
+    <string name="line">Line</string>
+    <string name="up">Up</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="next">Next</string>
+    <string name="finish">Finish</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="zealId">Zeal ID</string>
+    <string name="password">Password</string>
+    <string name="register_text">Register now\nto start playing</string>
+    <string name="login_text">Log in to\nyour account</string>
+    <string name="choose_avatar">Choose your\nAvatar</string>
+    <string name="read_rules">Read the Rules</string>
+    <string name="need_your_help">WE NEED YOUR HELP!\n\n</string>
+    <string name="rules">We need to find a team of 4 people\ndesperately and until now, we only\n
+have you!! :(\n\n
+We need your help to find the rest of
+your team members and if you can
+find your team as fast as you could
+then we will have something
+special waiting for you.</string>
+
     <string name="leaderboard">Leaderboard</string>
 
     <string name="bottom_nav_qr">QR code</string>
