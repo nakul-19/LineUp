@@ -1,12 +1,11 @@
 package com.gdsc.lineup
 
+import android.content.SharedPreferences
+import com.gdsc.lineup.login.LoginBody
 import com.gdsc.lineup.models.ResultHandler
-<<<<<<< Updated upstream
-=======
 import com.gdsc.lineup.models.UpdateScoreBody
 import com.gdsc.lineup.models.UserModel
 import com.gdsc.lineup.network.NetworkService
->>>>>>> Stashed changes
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
@@ -19,8 +18,11 @@ import javax.inject.Inject
  */
 
 class Repository @Inject constructor(
-    private val api: NetworkService
+    private val api: NetworkService,
+    private val sp: SharedPreferences
 ) {
+
+
 
     suspend fun getLeaderBoard() = flow {
         emit(ResultHandler.Loading)
@@ -37,9 +39,6 @@ class Repository @Inject constructor(
         }.getOrElse { emit(ResultHandler.Failure(it)) }
     }.flowOn(Dispatchers.IO)
 
-<<<<<<< Updated upstream
-    suspend fun updateScore(userIdOne: String, userIdTwo: String) = flow {
-=======
     suspend fun registerUser(userModel: UserModel) = flow {
         emit((ResultHandler.Loading))
         registerUserFromNetwork(userModel).collect {
@@ -82,10 +81,9 @@ class Repository @Inject constructor(
     }.flowOn(Dispatchers.IO)
 
     suspend fun updateScore(updateScoreBody: UpdateScoreBody) = flow {
->>>>>>> Stashed changes
         runCatching {
             emit(ResultHandler.Success(api.updateScore(updateScoreBody).body()))
         }.getOrElse { emit(ResultHandler.Failure(it)) }
-    }.flowOn(Dispatchers.IO)
+    }.flowOn(Dispatchers.IO)     
 
 }
