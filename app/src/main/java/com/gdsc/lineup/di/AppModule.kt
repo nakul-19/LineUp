@@ -4,6 +4,7 @@ import android.content.Context
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import android.content.SharedPreferences
 import com.gdsc.lineup.R
+import com.gdsc.lineup.network.NetworkService
 import com.github.nkzawa.socketio.client.IO
 import com.github.nkzawa.socketio.client.Socket
 import dagger.Module
