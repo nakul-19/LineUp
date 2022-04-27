@@ -1,9 +1,11 @@
 package com.gdsc.lineup.location
 
-import android.util.Log
-import com.github.nkzawa.engineio.client.transports.WebSocket
-import com.github.nkzawa.socketio.client.IO
-import com.github.nkzawa.socketio.client.Socket
+import io.socket.client.IO
+import io.socket.client.Socket
+import io.socket.emitter.Emitter
+import kotlinx.coroutines.delay
+import timber.log.Timber
+import java.lang.Exception
 import java.net.URI
 
 /**
@@ -12,35 +14,36 @@ import java.net.URI
  */
 object SocketHelper {
 
-    private const val SOCKET_URL = ""
-    private const val MESSAGE = "MESSAGE"
-    private const val TAG = "SocketHelper"
+    private const val SOCKET_URL = "https://line-up-server.herokuapp.com/"
+    private const val MESSAGE = "setUserLocation"
+    private const val LISTENER = "user-joined"
 
     private var socket: Socket? = null
 
     fun init() {
         if (socket?.connected() == true)
             return
-        val uri = URI.create(SOCKET_URL)
-        val options = IO.Options().apply {
-            timeout = 60000
-            transports = arrayOf(WebSocket.NAME)
+        try {
+            socket = IO.socket(SOCKET_URL)
+            tryToConnect()
         }
-        socket = IO.socket(uri, options)
-        tryToConnect()
+        catch(e: Exception) {
+            Timber.e("exception ${e.message}")
+        }
     }
 
     private fun tryToConnect() {
         socket?.let {
             it.connect()
             it.on(Socket.EVENT_CONNECT) {
-                Log.d(TAG, "Connected!")
+                Timber.d("Connected!")
             }
             it.on(Socket.EVENT_CONNECT_ERROR) { i ->
-                Log.e(TAG, i.toString())
+                Timber.e(i.getOrNull(0).toString())
+                it.connect()
             }
-            it.on(Socket.EVENT_CONNECT_TIMEOUT) { i ->
-                Log.e(TAG, i.toString())
+            it.on(Socket.EVENT_DISCONNECT) { i ->
+                Timber.e(i.getOrNull(0).toString())
                 it.connect()
             }
         }
@@ -51,11 +54,11 @@ object SocketHelper {
         socket = null
     }
 
-    fun send(message: String) {
+    fun send(message: SocketDataModel) {
         socket?.emit(MESSAGE, message)
     }
 
-    fun collect(listener: (i: Array<out Any>) -> Unit) = socket?.on(MESSAGE) { listener(it) }
+    fun collect(listener: Emitter.Listener) = socket?.on(LISTENER, listener)
 
-    fun stopCollection() = socket?.off(MESSAGE)
+    fun stopCollection(listener: Emitter.Listener) = socket?.off(LISTENER, listener)
 }

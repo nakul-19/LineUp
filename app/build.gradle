@@ -64,8 +64,8 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
     // WebSocket
-    implementation 'com.github.nkzawa:socket.io-client:0.5.2'
-
+//    implementation 'com.github.nkzawa:socket.io-client:0.5.2'
+    implementation 'io.socket:socket.io-client:2.0.1'
     // Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
 

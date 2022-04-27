@@ -4,8 +4,6 @@ import android.content.Context
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import android.content.SharedPreferences
 import com.gdsc.lineup.R
-import com.github.nkzawa.socketio.client.IO
-import com.github.nkzawa.socketio.client.Socket
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,10 +23,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
-    @Singleton
-    @Provides
-    fun provideSocketClient(): Socket? = IO.socket("")
 
     @Provides
     @Singleton
