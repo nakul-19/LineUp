@@ -12,5 +12,5 @@ data class LeaderBoardResponse(
     val score: Int,
     val userId: String,
     val zealId: String,
-    val avatar: String,
+    val avatarId: String,
 )
