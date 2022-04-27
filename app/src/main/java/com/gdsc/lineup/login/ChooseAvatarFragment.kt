@@ -1,17 +1,20 @@
 package com.gdsc.lineup.login
 
 import android.content.Context
-import android.content.res.Resources
 import android.os.Bundle
+import android.util.DisplayMetrics
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.gdsc.lineup.ActionEventListener
+import com.gdsc.lineup.LoginViewModel
 import com.gdsc.lineup.R
 import com.gdsc.lineup.databinding.FragmentChooseAvatarBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import java.lang.Math.abs
 
 @AndroidEntryPoint
@@ -19,6 +22,7 @@ class ChooseAvatarFragment : Fragment(), ActionEventListener {
 
     private lateinit var binding: FragmentChooseAvatarBinding
     private lateinit var avatarAdapter: AvatarAdapter
+    private val viewModel: LoginViewModel by activityViewModels()
     private var avatars: IntArray = intArrayOf()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,27 +38,27 @@ class ChooseAvatarFragment : Fragment(), ActionEventListener {
 
         setAvatars()
         avatarAdapter = AvatarAdapter(requireContext(), avatars)
-        binding.avatarVp.offscreenPageLimit = 1
+        binding.avatarVp.offscreenPageLimit = 2
         binding.avatarVp.adapter = avatarAdapter
-// Add a PageTransformer that translates the next and previous items horizontally
-// towards the center of the screen, which makes them visible
-        val nextItemVisiblePx = 20.toDp
-        val currentItemHorizontalMarginPx = 40.toDp
+        binding.avatarVp.clipToPadding = false
+        binding.avatarVp.clipChildren = false
+        val nextItemVisiblePx = resources.getDimension(R.dimen.viewpager_next_item_visible)
+        val currentItemHorizontalMarginPx =
+            resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
         val pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx
         val pageTransformer = ViewPager2.PageTransformer { page: View, position: Float ->
             page.translationX = -pageTranslationX * position
-            // Next line scales the item's height. You can remove it if you don't want this effect
             page.scaleY = 1 - (0.25f * abs(position))
-            // If you want a fading effect uncomment the next line:
-            // page.alpha = 0.25f + (1 - abs(position))
-        }
-        binding.avatarVp.setPageTransformer(pageTransformer)
 
-// The ItemDecoration gives the current (centered) item horizontal margin so that
-// it doesn't occupy the whole screen width. Without it the items overlap
+        }
+        val offsetPx =
+            resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin).toInt()
+                .dpToPx(resources.displayMetrics)
+        binding.avatarVp.setPadding(offsetPx, 0, offsetPx, 0)
+        binding.avatarVp.setPageTransformer(pageTransformer)
         val itemDecoration = HorizontalMarginItemDecoration(
             requireContext(),
-            40
+            R.dimen.viewpager_current_item_horizontal_margin
         )
         binding.avatarVp.addItemDecoration(itemDecoration)
     }
@@ -72,6 +76,8 @@ class ChooseAvatarFragment : Fragment(), ActionEventListener {
         )
     }
 
+    private fun Int.dpToPx(displayMetrics: DisplayMetrics): Int = (this * displayMetrics.density).toInt()
+
     override fun onAttach(context: Context) {
         setActionEvent()
         super.onAttach(context)
@@ -83,9 +89,9 @@ class ChooseAvatarFragment : Fragment(), ActionEventListener {
         }
     }
 
-    val Int.toDp get() = (this / Resources.getSystem().displayMetrics.density).toInt()
-
     override fun onActionEvent() {
+        val pos = binding.avatarVp.currentItem
+        viewModel.userModel.value?.avatarId = avatars[pos].toString()
         activity?.supportFragmentManager?.beginTransaction()
             ?.replace(R.id.containerSignIn, RulesFragment())?.commit()
     }

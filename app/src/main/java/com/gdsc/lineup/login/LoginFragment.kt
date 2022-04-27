@@ -7,24 +7,47 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.gdsc.lineup.ActionEventListener
-import com.gdsc.lineup.MainActivity
-import com.gdsc.lineup.R
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import com.gdsc.lineup.*
 import com.gdsc.lineup.databinding.FragmentLoginBinding
+import com.gdsc.lineup.models.ResultHandler
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LoginFragment() : Fragment(), ActionEventListener {
 
     private lateinit var binding : FragmentLoginBinding
+    private val viewModel: LoginViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentLoginBinding.inflate(layoutInflater, container, false)
+        setObserver()
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    private fun setObserver() {
+         viewModel.loginRes.observe(viewLifecycleOwner){
+             when(it){
+                 is ResultHandler.Loading -> {
+                     binding.pb.visibility = View.VISIBLE
+                 }
+                 is ResultHandler.Success -> {
+                     binding.pb.visibility = View.INVISIBLE
+                     startActivity(Intent(requireContext().applicationContext, MainActivity::class.java))
+                     activity?.finishAffinity()
+                     Toast.makeText(requireContext(), "Login successfully", Toast.LENGTH_SHORT).show()
+                 }
+                 is ResultHandler.Failure -> {
+                     binding.pb.visibility = View.INVISIBLE
+                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                 }
+             }
+         }
     }
 
     override fun onAttach(context: Context) {
@@ -44,8 +67,11 @@ class LoginFragment() : Fragment(), ActionEventListener {
     }
 
     private fun loggingUser() {
-        startActivity(Intent(requireContext().applicationContext, MainActivity::class.java))
-        activity?.finishAffinity()
+        val loginBody = LoginBody(
+            binding.zealId.text.toString(),
+            binding.password.text.toString()
+        )
+        viewModel.loginUser(loginBody)
     }
 
     private fun validateInputs(): Boolean {

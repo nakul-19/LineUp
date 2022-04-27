@@ -28,26 +28,4 @@ internal class AvatarAdapter(private val context: Context, private val images: I
     }
 
     override fun getItemCount(): Int = images.size
-//    var mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-//
-//    override fun getCount(): Int = images.size
-//
-//    override fun isViewFromObject(view: View, `object`: Any): Boolean {
-//        return view === `object` as LinearLayout
-//    }
-//
-//    override fun instantiateItem(container: ViewGroup, position: Int): Any {
-//        val itemView: View = mLayoutInflater.inflate(R.layout.avatar_layout, container, false)
-//
-//        val imageView: ImageView = itemView.findViewById(R.id.avatarImg)
-//
-//        imageView.setImageResource(images[position])
-//
-//        Objects.requireNonNull(container).addView(itemView)
-//        return itemView
-//
-//    }
-//    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-//        container.removeView(`object` as LinearLayout)
-//    }
 }

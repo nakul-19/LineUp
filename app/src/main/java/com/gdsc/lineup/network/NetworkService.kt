@@ -1,6 +1,7 @@
 package com.gdsc.lineup.network
 
 import com.gdsc.lineup.leaderBoard.LeaderBoardResponse
+import com.gdsc.lineup.login.LoginBody
 import com.gdsc.lineup.models.RegisterResponse
 import com.gdsc.lineup.models.UserModel
 import retrofit2.Response
@@ -20,4 +21,7 @@ interface NetworkService {
 
     @POST("register")
     suspend fun registerUser(@Body userModel: UserModel): Response<RegisterResponse>
+
+    @POST("login")
+    suspend fun login(@Body loginBody : LoginBody) : Response<RegisterResponse>
 }

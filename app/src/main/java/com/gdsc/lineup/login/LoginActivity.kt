@@ -31,17 +31,16 @@ class LoginActivity() : AppCompatActivity() {
     }
 
     private fun setUpFragment() {
-//        when(target){
-//            "REGISTER" -> {
-//                binding.btnLabel.text = getString(R.string.register)
-//                supportFragmentManager.beginTransaction().replace(R.id.containerSignIn, RegisterFragment()).commit()
-//            }
-//            else -> {
-//                binding.btnLabel.text = getString(R.string.login)
-//                supportFragmentManager.beginTransaction().replace(R.id.containerSignIn, LoginFragment()).commit()
-//            }
-//        }
-        supportFragmentManager.beginTransaction().replace(R.id.containerSignIn, ChooseAvatarFragment()).commit()
+        when(target){
+            "REGISTER" -> {
+                binding.btnLabel.text = getString(R.string.register)
+                supportFragmentManager.beginTransaction().replace(R.id.containerSignIn, RegisterFragment()).commit()
+            }
+            else -> {
+                binding.btnLabel.text = getString(R.string.login)
+                supportFragmentManager.beginTransaction().replace(R.id.containerSignIn, LoginFragment()).commit()
+            }
+        }
     }
 
     private fun setUpListener() {

@@ -9,11 +9,11 @@ import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import java.lang.Math.abs
 
-class HorizontalMarginItemDecoration(context: Context, horizontalMarginInDp: Int) :
+class HorizontalMarginItemDecoration(context: Context, @DimenRes horizontalMarginInDp: Int) :
     RecyclerView.ItemDecoration() {
 
     private val horizontalMarginInPx: Int =
-       (horizontalMarginInDp).toInt()
+        context.resources.getDimension(horizontalMarginInDp).toInt()
 
     override fun getItemOffsets(
         outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State
