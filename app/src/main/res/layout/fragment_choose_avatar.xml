@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingHorizontal="25dp"
     android:paddingVertical="35dp"
     tools:context=".login.ChooseAvatarFragment">
 
@@ -16,5 +15,11 @@
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="32sp" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/avatarVp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"/>
 
 </LinearLayout>

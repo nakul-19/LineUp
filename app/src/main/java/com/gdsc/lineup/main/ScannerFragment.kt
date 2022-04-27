@@ -16,10 +16,14 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.budiyev.android.codescanner.*
+import com.gdsc.lineup.MainViewModel
 import com.gdsc.lineup.databinding.DialogTeamMemberFoundBinding
 import com.gdsc.lineup.databinding.FragmentScannerBinding
+import com.gdsc.lineup.models.ResultHandler
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 
 @AndroidEntryPoint
@@ -29,12 +33,15 @@ class ScannerFragment : Fragment() {
     private lateinit var scannedQR: String
     private lateinit var codeScanner: CodeScanner
 
+    private val viewModel: MainViewModel by activityViewModels()
+
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) {
         isGranted: Boolean ->
         if (isGranted) {
             setupCodeScanner()
+            startCamera()
         } else {
             // TODO
         }
@@ -52,6 +59,7 @@ class ScannerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requestCamera()
+        setupObserver()
     }
 
     private fun setupCodeScanner() {
@@ -62,29 +70,41 @@ class ScannerFragment : Fragment() {
             autoFocusMode = AutoFocusMode.SAFE
             isAutoFocusEnabled = true
             isFlashEnabled = false
-
             decodeCallback = DecodeCallback {
                 Handler(Looper.getMainLooper()).post {
                     handleQR(it.text)
                 }
             }
-
             errorCallback = ErrorCallback {
-                Log.e("Code Scanner", it.message.toString())
+                Timber.e(it.message.toString())
             }
         }
     }
 
-    // this function receives
-    private fun handleQR(id: String) {
+    private fun handleQR(scannedId: String) {
+//        viewModel.updateScore(scannedId, TODO(Add self user id here))
+    }
 
-        // make api call to check if the user is in the same team or not
-        // and show the dialog box accordingly showTeamMemberFoundDialog() or showNonTeamMemberFoundDialog()
-        showTeamMemberFoundDialog()
+    private fun setupObserver() {
+
+        viewModel.scanResponse.observe(viewLifecycleOwner) {
+            when (it) {
+                is ResultHandler.Loading -> {
+
+                }
+                is ResultHandler.Success -> {
+                    showTeamMemberFoundCase()
+                }
+                is ResultHandler.Failure -> {
+                    showNonTeamMemberFoundCase()
+                    startCamera()
+                }
+            }
+        }
 
     }
 
-    private fun showTeamMemberFoundDialog() {
+    private fun showTeamMemberFoundCase() {
 
         val view = DialogTeamMemberFoundBinding.inflate(layoutInflater)
         val dialog = Dialog(requireContext())
@@ -97,9 +117,8 @@ class ScannerFragment : Fragment() {
 
     }
 
-    private fun showNonTeamMemberFoundDialog() {
-        // no designs for this case yet (Can show toast for now)
-        Toast.makeText(requireContext(), "Different Team Member", Toast.LENGTH_LONG).show()
+    private fun showNonTeamMemberFoundCase() {
+        Toast.makeText(requireContext(), "NOT FROM SAME TEAM!!", Toast.LENGTH_LONG).show()
     }
 
     private fun requestCamera() {
@@ -109,6 +128,7 @@ class ScannerFragment : Fragment() {
                 Manifest.permission.CAMERA
             ) -> {
                 setupCodeScanner()
+                startCamera()
             }
             else -> {
                 requestPermissionLauncher.launch(Manifest.permission.CAMERA)

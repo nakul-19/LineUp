@@ -7,16 +7,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.gdsc.lineup.ActionEventListener
-import com.gdsc.lineup.MainActivity
-import com.gdsc.lineup.R
+import androidx.fragment.app.activityViewModels
+import com.gdsc.lineup.*
 import com.gdsc.lineup.databinding.FragmentRegisterBinding
+import com.gdsc.lineup.models.UserModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RegisterFragment() : Fragment(), ActionEventListener {
 
     private lateinit var binding: FragmentRegisterBinding
+    private val viewModel: LoginViewModel by activityViewModels()
     private val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
 
     override fun onCreateView(
@@ -41,9 +42,18 @@ class RegisterFragment() : Fragment(), ActionEventListener {
 
     override fun onActionEvent() {
         if (validateInputs()){
+            val userModel = UserModel(
+                binding.name.text.toString(),
+                binding.email.text.toString(),
+                binding.password.text.toString(),
+                binding.zealId.text.toString(),
+                ""
+            )
+            viewModel.userModel.postValue(userModel)
             activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.containerSignIn, ChooseAvatarFragment())?.commit()
+        } else { // TODO just for testing
+            startActivity(Intent(requireContext(), MainActivity::class.java))
         }
-
     }
 
     private fun validateInputs(): Boolean {

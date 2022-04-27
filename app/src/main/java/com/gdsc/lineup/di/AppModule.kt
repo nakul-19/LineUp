@@ -4,13 +4,14 @@ import android.content.Context
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import android.content.SharedPreferences
 import com.gdsc.lineup.R
+import com.gdsc.lineup.network.NetworkService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
-import project.gdsc.zealicon22.network.NetworkService
+import com.gdsc.lineup.network.NetworkService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
