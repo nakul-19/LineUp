@@ -22,6 +22,7 @@ import com.gdsc.lineup.MainViewModel
 import com.gdsc.lineup.databinding.DialogTeamMemberFoundBinding
 import com.gdsc.lineup.databinding.FragmentScannerBinding
 import com.gdsc.lineup.models.ResultHandler
+import com.gdsc.lineup.models.UpdateScoreBody
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -58,6 +59,7 @@ class ScannerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.resetScanResult()
         requestCamera()
         setupObserver()
     }
@@ -72,6 +74,7 @@ class ScannerFragment : Fragment() {
             isFlashEnabled = false
             decodeCallback = DecodeCallback {
                 Handler(Looper.getMainLooper()).post {
+                    codeScanner.releaseResources()
                     handleQR(it.text)
                 }
             }
@@ -82,7 +85,7 @@ class ScannerFragment : Fragment() {
     }
 
     private fun handleQR(scannedId: String) {
-//        viewModel.updateScore(scannedId, TODO(Add self user id here))
+        viewModel.updateScore(UpdateScoreBody(scannedId, viewModel.getUserId()))
     }
 
     private fun setupObserver() {
@@ -94,9 +97,10 @@ class ScannerFragment : Fragment() {
                 }
                 is ResultHandler.Success -> {
                     showTeamMemberFoundCase()
+                    startCamera()
                 }
                 is ResultHandler.Failure -> {
-                    showNonTeamMemberFoundCase()
+                    showNonTeamMemberFoundCase(it.message)
                     startCamera()
                 }
             }
@@ -112,12 +116,13 @@ class ScannerFragment : Fragment() {
         dialog.setContentView(view.root)
         view.cross.setOnClickListener { dialog.hide() }
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.setOnDismissListener { startCamera() }
 
         dialog.show()
 
     }
 
-    private fun showNonTeamMemberFoundCase() {
+    private fun showNonTeamMemberFoundCase(message: String) {
         Toast.makeText(requireContext(), "NOT FROM SAME TEAM!!", Toast.LENGTH_LONG).show()
     }
 

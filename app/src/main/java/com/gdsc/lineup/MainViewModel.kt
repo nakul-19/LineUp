@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import com.gdsc.lineup.leaderBoard.LeaderBoardResponse
 import com.gdsc.lineup.models.ResultHandler
+import com.gdsc.lineup.models.UpdateScoreBody
 import com.gdsc.lineup.models.UpdateScoreResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
@@ -35,11 +36,17 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun updateScore(userIdOne: String, userIdTwo: String) = viewModelScope.launch {
+    fun updateScore(updateScoreBody: UpdateScoreBody) = viewModelScope.launch {
         _scanResponse.postValue(ResultHandler.Loading)
-        repo.updateScore(userIdOne, userIdTwo).collect {
+        repo.updateScore(updateScoreBody).collect {
             _scanResponse.postValue(it as ResultHandler<UpdateScoreResponse>)
         }
     }
+
+    fun resetScanResult() {
+        _scanResponse.postValue(ResultHandler.Loading)
+    }
+
+    fun getUserId() = repo.getUserId()
 
 }
