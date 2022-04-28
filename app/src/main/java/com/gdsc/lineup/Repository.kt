@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -48,21 +49,28 @@ class Repository @Inject constructor(
 
     private suspend fun registerUserFromNetwork (userModel: UserModel) = flow {
         kotlin.runCatching {
-            emit(ResultHandler.Success(api.registerUser(userModel).body()))
+            val result = api.registerUser(userModel)
+            if (result.isSuccessful)
+                emit(ResultHandler.Success(result.body()))
+            else {
+                throw Throwable("Something went wrong")
+            }
         }.getOrElse { emit(ResultHandler.Failure(it)) }
     }.flowOn(Dispatchers.IO)
 
     suspend fun loginUser(loginBody: LoginBody) = flow {
         emit((ResultHandler.Loading))
         loginUserFromNetwork(loginBody).collect {
-            if (it is ResultHandler.Success){
+            Timber.d("Result1 $it")
+            if (it is ResultHandler.Success) {
+                val body = it.result
                 emit(it)
-                sp.edit().putString("name", it.result?.user?.name).apply()
-                sp.edit().putString("email", it.result?.user?.email).apply()
-                sp.edit().putString("zealId", it.result?.user?.zealId).apply()
-                sp.edit().putString("avatar", it.result?.user?.avatarId).apply()
-                sp.edit().putString("teamId", it.result?.user?.teamId).apply()
-                sp.edit().putString("id", it.result?.user?.id).apply()
+                sp.edit().putString("name", body?.user?.name).apply()
+                sp.edit().putString("userId", body?.user?.id).apply()
+                sp.edit().putString("email", body?.user?.email).apply()
+                sp.edit().putString("zealId", body?.user?.zealId).apply()
+                sp.edit().putString("avatar", body?.user?.avatarId).apply()
+                sp.edit().putString("teamId", body?.user?.teamId).apply()
             }
             else{
                 emit(it)
@@ -71,12 +79,17 @@ class Repository @Inject constructor(
     }
 
     fun getUserId(): String {
-        return sp.getString("id", "1")!!
+        return sp.getString("userId", "1")!!
     }
 
     private suspend fun loginUserFromNetwork(loginBody: LoginBody) = flow {
         kotlin.runCatching {
-            emit(ResultHandler.Success(api.login(loginBody).body()))  
+            val result = api.login(loginBody)
+            if (result.isSuccessful)
+                emit(ResultHandler.Success(result.body()))
+            else {
+                throw Throwable("User does not exist")
+            }
         }.getOrElse { emit(ResultHandler.Failure(it)) }
     }.flowOn(Dispatchers.IO)
 

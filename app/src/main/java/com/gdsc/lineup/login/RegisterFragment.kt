@@ -51,8 +51,6 @@ class RegisterFragment() : Fragment(), ActionEventListener {
             )
             viewModel.userModel.postValue(userModel)
             activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.containerSignIn, ChooseAvatarFragment())?.commit()
-        } else { // TODO just for testing
-            startActivity(Intent(requireContext(), MainActivity::class.java))
         }
     }
 
