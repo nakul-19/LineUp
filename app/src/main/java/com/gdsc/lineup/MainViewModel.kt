@@ -1,21 +1,20 @@
 package com.gdsc.lineup
 
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
 import com.gdsc.lineup.leaderBoard.LeaderBoardResponse
-import com.gdsc.lineup.location.LocationService
-import com.gdsc.lineup.location.MessageModel
-import com.gdsc.lineup.location.SocketHelper
-import com.gdsc.lineup.location.TeammateModel
+import com.gdsc.lineup.location.*
 import com.gdsc.lineup.models.ResultHandler
 import com.gdsc.lineup.models.UpdateScoreResponse
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.socket.emitter.Emitter
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 import kotlin.math.atan2
 import kotlin.math.cos
@@ -29,12 +28,20 @@ import kotlin.math.sqrt
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val repo: Repository
+    private val repo: Repository,
+    private val sp: SharedPreferences
 ) : ViewModel() {
 
     private val listener = Emitter.Listener {
-        val data = Gson().fromJson(it.getOrNull(0).toString(),MessageModel::class.java) ?: return@Listener
-        handleData(data)
+        val data = Gson().fromJson(it.getOrNull(0).toString(), SocketDataModel::class.java)
+        if (data == null) {
+            Timber.e("Null model received.")
+            return@Listener
+        } else
+            Timber.d(data.toString())
+        if (data.str != null && data.teamId == sp.getString("teamId", "")
+            && !sp.getString("teamId", "").isNullOrBlank())
+            handleData(data.str)
     }
 
     init {
@@ -61,16 +68,24 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private val arrayList= ArrayList<TeammateModel>()
+    private val arrayList = ArrayList<TeammateModel>()
 
     @Synchronized
     private fun handleData(m: MessageModel) {
-        if (arrayList.singleOrNull { it.zealId==m.zealId }==null) {
-            arrayList.add(TeammateModel(m.zealId,m.avatar,m.longitude,m.latitude,calculateDistance(m.latitude,m.longitude)))
+        if (arrayList.singleOrNull { it.zealId == m.zealId } == null) {
+            arrayList.add(
+                TeammateModel(
+                    m.zealId,
+                    m.avatar,
+                    m.longitude,
+                    m.latitude,
+                    calculateDistance(m.latitude, m.longitude)
+                )
+            )
         } else {
-            val old = arrayList.singleOrNull { it.zealId==m.zealId }!!
+            val old = arrayList.singleOrNull { it.zealId == m.zealId }!!
             arrayList.remove(old)
-            val new = old.copy(distance = calculateDistance(m.latitude,m.longitude))
+            val new = old.copy(distance = calculateDistance(m.latitude, m.longitude))
             arrayList.add(new)
         }
         updateTeammates()
@@ -106,7 +121,7 @@ class MainViewModel @Inject constructor(
     }
 
     private fun deg2rad(deg: Double): Double {
-        return deg * (Math.PI/180)
+        return deg * (Math.PI / 180)
     }
 
     override fun onCleared() {

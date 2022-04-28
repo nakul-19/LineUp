@@ -24,7 +24,6 @@ class WelcomeActivity : AppCompatActivity() {
             startActivity(Intent(this,MainActivity::class.java).apply { addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) })
         setContentView(binding.root)
 
-        ContextCompat.startForegroundService(this, Intent(this, LocationService::class.java))
         setUpListners()
     }
 

@@ -68,7 +68,7 @@ object SocketHelper {
 
     fun send(message: SocketDataModel) {
         if (socket?.isActive == true)
-            socket?.emit(MESSAGE, "Gson().toJson(message)")
+            socket?.emit(MESSAGE, Gson().toJson(message).toString())
         else
             tryToConnect()
     }

@@ -50,8 +50,8 @@ class LocationService : Service() {
     private val scope = CoroutineScope(Dispatchers.IO + job)
 
     private val listener = Emitter.Listener {
-        val data = it[0] as String?/*Gson().fromJson(it[0]?.toString(), MessageModel::class.java)*/
-        Timber.d("ReceivedMessage:\n${data}")
+//        val data = Gson().fromJson(it[0]?.toString(), SocketDataModel::class.java)/*Gson().fromJson(it[0]?.toString(), MessageModel::class.java)*/
+        Timber.d("ReceivedMessage:\n${it[0]?.toString()}")
         try {
         } catch (e: JSONException) {
             Timber.e(e)
@@ -128,7 +128,7 @@ class LocationService : Service() {
             override fun onLocationResult(result: LocationResult) {
                 super.onLocationResult(result)
                 Timber.d("Location: ${result.lastLocation}")
-                if (lastLocation == result.lastLocation /*|| !sp.contains("zealId")*/)
+                if (lastLocation == result.lastLocation || !sp.contains("zealId"))
                     return
                 lastLocation = result.lastLocation
                 val pingModel = MessageModel(
@@ -139,7 +139,7 @@ class LocationService : Service() {
                 )
                 SocketHelper.send(
                     SocketDataModel(
-                        /*sp.getString("teamId", "123") ?:*/ "123",
+                        sp.getString("teamId", "123") ?: "123",
                         pingModel
                     )
                 )
