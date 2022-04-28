@@ -11,6 +11,8 @@ import com.gdsc.lineup.models.UserModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import retrofit2.Response
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -43,9 +45,8 @@ class LoginViewModel @Inject constructor(
     }
 
     fun loginUser(loginBody: LoginBody) = viewModelScope.launch {
-        mRegisterRes.postValue(ResultHandler.Loading)
         repo.loginUser(loginBody).collect {
-            mLoginRes.postValue(it as ResultHandler<RegisterResponse>)
+            mLoginRes.postValue(it as ResultHandler<RegisterResponse>?)
         }
     }
 

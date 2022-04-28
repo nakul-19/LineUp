@@ -46,6 +46,7 @@ object SocketHelper {
             it.on(Socket.EVENT_CONNECT) {
                 connecting.set(false)
                 Timber.d("Connected!")
+                arrayList.forEach { i-> socket?.on(LISTENER,i) }
             }
             it.on(Socket.EVENT_CONNECT_ERROR) { i ->
                 connecting.set(false)
@@ -73,7 +74,16 @@ object SocketHelper {
             tryToConnect()
     }
 
-    fun collect(listener: Emitter.Listener) = socket?.on(LISTENER, listener)
+    private val arrayList = arrayListOf<Emitter.Listener>()
 
-    fun stopCollection(listener: Emitter.Listener) = socket?.off(LISTENER, listener)
+    fun collect(listener: Emitter.Listener) {
+        socket?.on(LISTENER, listener)
+        if (!arrayList.contains(listener))
+        arrayList.add(listener)
+    }
+
+    fun stopCollection(listener: Emitter.Listener) {
+        socket?.off(LISTENER, listener)
+        arrayList.remove(listener)
+    }
 }

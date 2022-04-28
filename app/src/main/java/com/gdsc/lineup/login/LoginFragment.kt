@@ -13,6 +13,7 @@ import com.gdsc.lineup.*
 import com.gdsc.lineup.databinding.FragmentLoginBinding
 import com.gdsc.lineup.models.ResultHandler
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class LoginFragment() : Fragment(), ActionEventListener {
@@ -32,15 +33,16 @@ class LoginFragment() : Fragment(), ActionEventListener {
 
     private fun setObserver() {
          viewModel.loginRes.observe(viewLifecycleOwner){
+             Timber.d("Result $it")
              when(it){
                  is ResultHandler.Loading -> {
                      binding.pb.visibility = View.VISIBLE
                  }
                  is ResultHandler.Success -> {
                      binding.pb.visibility = View.INVISIBLE
-                     startActivity(Intent(requireContext().applicationContext, MainActivity::class.java))
-                     activity?.finishAffinity()
-                     Toast.makeText(requireContext(), "Login successfully", Toast.LENGTH_SHORT).show()
+                         startActivity(Intent(requireContext().applicationContext, MainActivity::class.java))
+                         activity?.finishAffinity()
+                         Toast.makeText(requireContext(), "Login successfully", Toast.LENGTH_SHORT).show()
                  }
                  is ResultHandler.Failure -> {
                      binding.pb.visibility = View.INVISIBLE
@@ -71,6 +73,7 @@ class LoginFragment() : Fragment(), ActionEventListener {
             binding.zealId.text.toString(),
             binding.password.text.toString()
         )
+        Timber.d("Check $loginBody")
         viewModel.loginUser(loginBody)
     }
 

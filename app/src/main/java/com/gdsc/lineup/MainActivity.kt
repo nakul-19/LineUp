@@ -1,8 +1,9 @@
 package com.gdsc.lineup
 
+import android.app.UiModeManager
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.gdsc.lineup.databinding.ActivityMainBinding
 import com.gdsc.lineup.leaderBoard.LeaderBoardFragment
@@ -11,6 +12,7 @@ import com.gdsc.lineup.main.QRFragment
 import com.gdsc.lineup.main.RouteFragment
 import com.gdsc.lineup.main.ScannerFragment
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

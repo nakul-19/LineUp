@@ -49,7 +49,7 @@ class RouteFragment : Fragment() {
                 binding.iv2.setImageDrawable(ResourcesCompat.getDrawable(resources,it.avatar.toInt(),null))
             } catch (e: Exception) {}
         }
-        vm.first.observe(viewLifecycleOwner) {
+        vm.third.observe(viewLifecycleOwner) {
             if (it==null) {
                 binding.tv3.text = "Nobody nearby"
                 return@observe

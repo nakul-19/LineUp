@@ -20,7 +20,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.LineUp.MainActivity" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.LineUp.MainActivity" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorOnPrimary">@color/black</item>

@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.gdsc.lineup.leaderBoard.LeaderBoardResponse
 import com.gdsc.lineup.location.*
 import com.gdsc.lineup.models.ResultHandler
+import com.gdsc.lineup.models.UpdateScoreBody
 import com.gdsc.lineup.models.UpdateScoreResponse
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,18 +34,20 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val listener = Emitter.Listener {
+        Timber.e("mainviewmodelin")
         val data = Gson().fromJson(it.getOrNull(0).toString(), SocketDataModel::class.java)
         if (data == null) {
             Timber.e("Null model received.")
             return@Listener
         } else
             Timber.d(data.toString())
-        if (data.str != null && data.teamId == sp.getString("teamId", "")
-            && !sp.getString("teamId", "").isNullOrBlank())
+        if (data.str != null && data.teamId == sp.getString("teamId", "123")
+            /*&& !sp.getString("teamId", "").isNullOrBlank()*/)
             handleData(data.str)
     }
 
     init {
+        SocketHelper.init()
         SocketHelper.collect(listener)
     }
 
@@ -61,9 +64,9 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun updateScore(userIdOne: String, userIdTwo: String) = viewModelScope.launch {
+    fun updateScore(updateScoreBody: UpdateScoreBody) = viewModelScope.launch {
         _scanResponse.postValue(ResultHandler.Loading)
-        repo.updateScore(userIdOne, userIdTwo).collect {
+        repo.updateScore(updateScoreBody).collect {
             _scanResponse.postValue(it as ResultHandler<UpdateScoreResponse>)
         }
     }
@@ -128,5 +131,11 @@ class MainViewModel @Inject constructor(
         SocketHelper.stopCollection(listener)
         super.onCleared()
     }
+
+    fun resetScanResult() {
+        _scanResponse.postValue(ResultHandler.Loading)
+    }
+
+    fun getUserId() = repo.getUserId()
 
 }
