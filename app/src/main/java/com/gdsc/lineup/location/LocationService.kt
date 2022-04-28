@@ -24,6 +24,7 @@ import io.socket.emitter.Emitter
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
+import org.json.JSONException
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -39,6 +40,7 @@ class LocationService : Service() {
     companion object {
         const val NOTIFICATION_CHANNEL_ID = "LINE_UP"
         var serviceRunning = false
+        var lastLocation: Location? = null
     }
 
     @Inject
@@ -48,7 +50,13 @@ class LocationService : Service() {
     private val scope = CoroutineScope(Dispatchers.IO + job)
 
     private val listener = Emitter.Listener {
-        Timber.d("ReceivedMessage:\n$it")
+        val data = it[0] as String?/*Gson().fromJson(it[0]?.toString(), MessageModel::class.java)*/
+        Timber.d("ReceivedMessage:\n${data}")
+        try {
+        } catch (e: JSONException) {
+            Timber.e(e)
+        }
+
     }
 
     override fun onCreate() {
@@ -94,8 +102,6 @@ class LocationService : Service() {
         }
     }
 
-    private var lastLocation: Location? = null
-
     private fun updateLocation() {
 
         if (ActivityCompat.checkSelfPermission(
@@ -133,8 +139,8 @@ class LocationService : Service() {
                 )
                 SocketHelper.send(
                     SocketDataModel(
-                        sp.getString("teamId", "123") ?: "123",
-                        Gson().toJson(pingModel)
+                        /*sp.getString("teamId", "123") ?:*/ "123",
+                        pingModel
                     )
                 )
             }

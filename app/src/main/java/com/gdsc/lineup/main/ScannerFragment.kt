@@ -31,7 +31,7 @@ class ScannerFragment : Fragment() {
 
     private lateinit var binding: FragmentScannerBinding
     private lateinit var scannedQR: String
-    private lateinit var codeScanner: CodeScanner
+    private var codeScanner: CodeScanner? = null
 
     private val viewModel: MainViewModel by activityViewModels()
 
@@ -64,7 +64,7 @@ class ScannerFragment : Fragment() {
 
     private fun setupCodeScanner() {
         codeScanner = CodeScanner(requireContext(), binding.scannerView)
-        codeScanner.apply {
+        codeScanner?.apply {
             camera = CodeScanner.CAMERA_BACK
             formats = CodeScanner.TWO_DIMENSIONAL_FORMATS
             autoFocusMode = AutoFocusMode.SAFE
@@ -137,12 +137,12 @@ class ScannerFragment : Fragment() {
     }
 
     private fun startCamera() {
-        codeScanner.startPreview()
+        codeScanner?.startPreview()
     }
 
     override fun onPause() {
         super.onPause()
-        codeScanner.releaseResources()
+        codeScanner?.releaseResources()
     }
 
 }

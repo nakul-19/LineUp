@@ -4,12 +4,12 @@ import android.content.SharedPreferences
 import com.gdsc.lineup.login.LoginBody
 import com.gdsc.lineup.models.ResultHandler
 import com.gdsc.lineup.models.UserModel
+import com.gdsc.lineup.network.NetworkService
+import com.google.gson.JsonObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import com.gdsc.lineup.network.NetworkService
-import com.google.gson.JsonObject
 import javax.inject.Inject
 
 /**
@@ -23,13 +23,12 @@ class Repository @Inject constructor(
 ) {
 
 
-
     suspend fun getLeaderBoard() = flow {
         emit(ResultHandler.Loading)
         fetchDataFromNetwork().collect {
-            if (it is ResultHandler.Success){
+            if (it is ResultHandler.Success) {
                 emit(it)
-            }else emit(it)
+            } else emit(it)
         }
     }.flowOn(Dispatchers.IO)
 
@@ -46,7 +45,7 @@ class Repository @Inject constructor(
         }
     }.flowOn(Dispatchers.IO)
 
-    private suspend fun registerUserFromNetwork (userModel: UserModel) = flow {
+    private suspend fun registerUserFromNetwork(userModel: UserModel) = flow {
         kotlin.runCatching {
             emit(ResultHandler.Success(api.registerUser(userModel).body()))
         }.getOrElse { emit(ResultHandler.Failure(it)) }
@@ -55,15 +54,14 @@ class Repository @Inject constructor(
     suspend fun loginUser(loginBody: LoginBody) = flow {
         emit((ResultHandler.Loading))
         loginUserFromNetwork(loginBody).collect {
-            if (it is ResultHandler.Success){
+            if (it is ResultHandler.Success) {
                 emit(it)
                 sp.edit().putString("name", it.result?.user?.name).apply()
                 sp.edit().putString("email", it.result?.user?.email).apply()
                 sp.edit().putString("zealId", it.result?.user?.zealId).apply()
                 sp.edit().putString("avatar", it.result?.user?.avatarId).apply()
                 sp.edit().putString("teamId", it.result?.user?.teamId).apply()
-            }
-            else{
+            } else {
                 emit(it)
             }
         }
@@ -71,7 +69,7 @@ class Repository @Inject constructor(
 
     private suspend fun loginUserFromNetwork(loginBody: LoginBody) = flow {
         kotlin.runCatching {
-            emit(ResultHandler.Success(api.login(loginBody).body()))  
+            emit(ResultHandler.Success(api.login(loginBody).body()))
         }.getOrElse { emit(ResultHandler.Failure(it)) }
     }.flowOn(Dispatchers.IO)
 
@@ -82,6 +80,6 @@ class Repository @Inject constructor(
             data.addProperty("userId2", userIdTwo)
             emit(ResultHandler.Success(api.updateScore(data).body()))
         }.getOrElse { emit(ResultHandler.Failure(it)) }
-    }.flowOn(Dispatchers.IO)     
+    }.flowOn(Dispatchers.IO)
 
 }

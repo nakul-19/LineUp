@@ -6,5 +6,5 @@ package com.gdsc.lineup.location
  */
 data class SocketDataModel(
     val teamId: String,
-    val str: String
+    val str: MessageModel
 )

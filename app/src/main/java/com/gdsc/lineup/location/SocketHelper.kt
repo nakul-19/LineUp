@@ -1,12 +1,12 @@
 package com.gdsc.lineup.location
 
+import com.google.gson.Gson
 import io.socket.client.IO
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
-import kotlinx.coroutines.delay
 import timber.log.Timber
-import java.lang.Exception
-import java.net.URI
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * Created by Nakul
@@ -14,7 +14,7 @@ import java.net.URI
  */
 object SocketHelper {
 
-    private const val SOCKET_URL = "https://line-up-server.herokuapp.com/"
+    private const val SOCKET_URL = "https://arcane-atoll-63814.herokuapp.com/"
     private const val MESSAGE = "setUserLocation"
     private const val LISTENER = "user-joined"
 
@@ -24,27 +24,39 @@ object SocketHelper {
         if (socket?.connected() == true)
             return
         try {
-            socket = IO.socket(SOCKET_URL)
+            socket = IO.socket(
+                SOCKET_URL,
+                IO.Options().apply { timeout = TimeUnit.SECONDS.toMillis(120) }
+            )
             tryToConnect()
-        }
-        catch(e: Exception) {
+        } catch (e: Exception) {
             Timber.e("exception ${e.message}")
         }
     }
 
+    private var connecting = AtomicBoolean(false)
+
     private fun tryToConnect() {
+
+        if (socket?.isActive == true || connecting.get())
+            return
+        connecting.set(true)
         socket?.let {
             it.connect()
             it.on(Socket.EVENT_CONNECT) {
+                connecting.set(false)
                 Timber.d("Connected!")
             }
             it.on(Socket.EVENT_CONNECT_ERROR) { i ->
+                connecting.set(false)
                 Timber.e(i.getOrNull(0).toString())
-                it.connect()
+                tryToConnect()
             }
             it.on(Socket.EVENT_DISCONNECT) { i ->
+                connecting.set(false)
                 Timber.e(i.getOrNull(0).toString())
-                it.connect()
+                Timber.e("Disconnected!")
+                tryToConnect()
             }
         }
     }
@@ -55,7 +67,10 @@ object SocketHelper {
     }
 
     fun send(message: SocketDataModel) {
-        socket?.emit(MESSAGE, message)
+        if (socket?.isActive == true)
+            socket?.emit(MESSAGE, "Gson().toJson(message)")
+        else
+            tryToConnect()
     }
 
     fun collect(listener: Emitter.Listener) = socket?.on(LISTENER, listener)
