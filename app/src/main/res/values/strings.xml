@@ -15,13 +15,7 @@
     <string name="choose_avatar">Choose your\nAvatar</string>
     <string name="read_rules">Read the Rules</string>
     <string name="need_your_help">WE NEED YOUR HELP!\n\n</string>
-    <string name="rules">We need to find a team of 10 people\ndesperately and until now, we only\n
-have you!! :(\n\n
-We need your help to find the rest of
-your team members and if you can
-find your team as fast as you could
-then we will have something
-special waiting for you.</string>
+    <string name="rules">We need to find a team of 10 people\ndesperately and until now, we only have you!! :(\nWe need your help to find the rest of your team members and if you can find your team as fast as you could then we will have something special waiting for you.</string>
 
     <string name="leaderboard">Leaderboard</string>
 
@@ -29,7 +23,7 @@ special waiting for you.</string>
     <string name="bottom_nav_scanner">Scanner</string>
     <string name="bottom_nav_route">Route</string>
     <string name="bottom_nav_leaderboard">Leaderboard</string>
-    
+
     <string name="qr_screen_heading">My QR Code</string>
     <string name="qr_screen_info">Show this QR code to your band members.</string>
 

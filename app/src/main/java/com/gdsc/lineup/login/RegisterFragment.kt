@@ -45,8 +45,8 @@ class RegisterFragment() : Fragment(), ActionEventListener {
             val userModel = UserModel(
                 binding.name.text.toString(),
                 binding.email.text.toString(),
-                binding.password.text.toString(),
                 binding.zealId.text.toString(),
+                binding.password.text.toString(),
                 ""
             )
             viewModel.userModel.postValue(userModel)

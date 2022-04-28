@@ -22,10 +22,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/leaderRecycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="24dp"
         tools:listitem="@layout/item_leader_board"
         android:layout_marginHorizontal="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/leaderText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

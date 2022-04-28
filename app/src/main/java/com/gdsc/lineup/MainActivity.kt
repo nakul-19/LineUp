@@ -1,12 +1,18 @@
 package com.gdsc.lineup
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.UiModeManager
+import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.gdsc.lineup.databinding.ActivityMainBinding
 import com.gdsc.lineup.leaderBoard.LeaderBoardFragment
+import com.gdsc.lineup.location.LocationService
 import com.gdsc.lineup.main.QRFragment
+import com.gdsc.lineup.main.RouteFragment
 import com.gdsc.lineup.main.ScannerFragment
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -19,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupBottomNavigation()
+        ContextCompat.startForegroundService(this, Intent(this, LocationService::class.java))
     }
 
     private fun setupBottomNavigation() {
@@ -33,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                         supportFragmentManager.beginTransaction().replace(binding.mainFrame.id, ScannerFragment()).commit()
                     }
                     R.id.route_screen -> {
-                        //supportFragmentManager.beginTransaction().replace(binding.mainFrame.id, RouteFragment())
+                        supportFragmentManager.beginTransaction().replace(binding.mainFrame.id, RouteFragment()).commit()
                     }
                     R.id.leaderboard -> {
                         supportFragmentManager.beginTransaction().replace(binding.mainFrame.id, LeaderBoardFragment()).commit()
