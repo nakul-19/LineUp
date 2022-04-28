@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import com.gdsc.lineup.MainViewModel
 import com.gdsc.lineup.databinding.FragmentQRBinding
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
@@ -16,6 +18,8 @@ class QRFragment : Fragment() {
     private lateinit var binding: FragmentQRBinding
     private lateinit var userId: String
 
+    private val viewModel: MainViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,17 +30,15 @@ class QRFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        getUserId() // use this function to fetch string that will be converted to QR code and store it to userId
-
+        getUserId()
+        generateQRCode()
     }
 
     private fun getUserId() {
-        userId = "r1f81eokj1ued0193eg1i3denfo8"
-        setQRCode()
+        userId = viewModel.getUserId()
     }
 
-    private fun setQRCode() {
+    private fun generateQRCode() {
         val barcodeEncoder = BarcodeEncoder()
         val bitmap = barcodeEncoder.encodeBitmap(userId, BarcodeFormat.QR_CODE, 512, 512)
         binding.qrImage.setImageBitmap(bitmap)

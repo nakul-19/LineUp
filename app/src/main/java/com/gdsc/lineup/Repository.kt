@@ -3,13 +3,13 @@ package com.gdsc.lineup
 import android.content.SharedPreferences
 import com.gdsc.lineup.login.LoginBody
 import com.gdsc.lineup.models.ResultHandler
+import com.gdsc.lineup.models.UpdateScoreBody
 import com.gdsc.lineup.models.UserModel
+import com.gdsc.lineup.network.NetworkService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import com.gdsc.lineup.network.NetworkService
-import com.google.gson.JsonObject
 import javax.inject.Inject
 
 /**
@@ -62,11 +62,16 @@ class Repository @Inject constructor(
                 sp.edit().putString("zealId", it.result?.user?.zealId).apply()
                 sp.edit().putString("avatar", it.result?.user?.avatarId).apply()
                 sp.edit().putString("teamId", it.result?.user?.teamId).apply()
+                sp.edit().putString("id", it.result?.user?.id).apply()
             }
             else{
                 emit(it)
             }
         }
+    }
+
+    fun getUserId(): String {
+        return sp.getString("id", "1")!!
     }
 
     private suspend fun loginUserFromNetwork(loginBody: LoginBody) = flow {
@@ -75,12 +80,9 @@ class Repository @Inject constructor(
         }.getOrElse { emit(ResultHandler.Failure(it)) }
     }.flowOn(Dispatchers.IO)
 
-    suspend fun updateScore(userIdOne: String, userIdTwo: String) = flow {
+    suspend fun updateScore(updateScoreBody: UpdateScoreBody) = flow {
         runCatching {
-            val data = JsonObject()
-            data.addProperty("userId1", userIdOne)
-            data.addProperty("userId2", userIdTwo)
-            emit(ResultHandler.Success(api.updateScore(data).body()))
+            emit(ResultHandler.Success(api.updateScore(updateScoreBody).body()))
         }.getOrElse { emit(ResultHandler.Failure(it)) }
     }.flowOn(Dispatchers.IO)     
 

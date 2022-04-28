@@ -1,8 +1,10 @@
 package com.gdsc.lineup.network
 
 import com.gdsc.lineup.leaderBoard.LeaderBoardResponse
+
 import com.gdsc.lineup.login.LoginBody
 import com.gdsc.lineup.models.RegisterResponse
+import com.gdsc.lineup.models.UpdateScoreBody
 import com.gdsc.lineup.models.UserModel
 import com.gdsc.lineup.models.UpdateScoreResponse
 import com.google.gson.JsonObject
@@ -26,5 +28,5 @@ interface NetworkService {
     suspend fun login(@Body loginBody : LoginBody) : Response<RegisterResponse>
   
     @POST("updateScore")
-    suspend fun updateScore(data: JsonObject): Response<UpdateScoreResponse>
+    suspend fun updateScore(@Body updateScoreBody: UpdateScoreBody): Response<UpdateScoreResponse>
 }

@@ -11,7 +11,7 @@
         <entry key="app/src/main/res/drawable/ic_welcome_img.xml" value="0.231" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.382051282051282" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3880208333333333" />
-        <entry key="app/src/main/res/layout/dialog_team_member_found.xml" value="0.382051282051282" />
+        <entry key="app/src/main/res/layout/dialog_team_member_found.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_q_r.xml" value="0.3880208333333333" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.382051282051282" />
         <entry key="app/src/main/res/layout/fragment_scanner.xml" value="0.37395833333333334" />
