@@ -39,6 +39,7 @@
 - Location Services
 - MVVM
 - Retrofit
+- Socket
 - Live Data 
 - Coroutines
 - Stetho
