@@ -1,7 +1,7 @@
 # LineUp 🗺️
 #### LineUp is a fun filled game played by 100 players at a time during Zealicon.
 <div align="center">
-  <img height="400" src="https://user-images.githubusercontent.com/57036954/180414634-05ba2e5a-d646-4826-b41b-030f3843f44d.png"></img>
+  <img src="https://user-images.githubusercontent.com/57036954/180436349-8f87ed1f-f814-41d0-a2fb-8f006ed4d5d8.jpg"></img>
 </div>
 </br>
 
@@ -47,7 +47,7 @@
 
 ## Screenshots📲
 <div align="center">
-  <img height="400" src="https://user-images.githubusercontent.com/57036954/180422092-f3f52225-665a-4716-aeb4-5828f08a3fe8.png"></img>
+  <img src="https://user-images.githubusercontent.com/57036954/180436472-0b1c6685-459a-486a-9db3-ab53b5ef4ffb.jpg"></img>
 </div>
 </br>
 
